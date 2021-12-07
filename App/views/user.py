@@ -1,4 +1,5 @@
 from flask import Blueprint, redirect, render_template, request, jsonify, send_from_directory, url_for, flash
+from flask_jwt import jwt_required
 
 from sqlalchemy.exc import IntegrityError
 from werkzeug.utils import secure_filename
@@ -14,6 +15,7 @@ def get_user_page():
     return render_template('users.html', users=users)
 
 @user_views.route('/api/users')
+@jwt_required()
 def client_app():
     users = get_all_users_json()
     return jsonify(users)
@@ -35,7 +37,7 @@ def get_user_reg_page():
         except IntegrityError:
             db.session.rollback()
             return jsonify('Something went wrong. User NOT Registered')
-        return jsonify('User Registered')
+        return redirect('/users')
         
     return render_template('register.html')  
 

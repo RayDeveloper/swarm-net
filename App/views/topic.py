@@ -37,11 +37,15 @@ def create_new_topic():
     text = request.json.get('text')
     level = request.json.get('level')
     topic = create_topic(text, level)
+
+    return "Created", 201
+
     if topic:
         return jsonify(topic)
     else:
         
         return 201
+
 
 
 
@@ -73,6 +77,7 @@ def delete_topic(topic_id):
     return jsonify(result.toDict()) if result else 404
 
 #get all popular topics
+
 @topic_views.route('/topics', methods=["GET"])
 def popular_topics():
     popular_topic = get_popular_topics()

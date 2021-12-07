@@ -13,7 +13,7 @@ def get_all_users_json():
 
 
 def create_user(fname, lname, email, password):
-    user = User(first_name=fname, last_name=lname, email=email)
+    user = User(first_name=fname, last_name=lname, email=email, password=password)
     db.session.add(user)
     db.session.commit()
     print(f"User created: {user.email}")
@@ -22,7 +22,7 @@ def create_user(fname, lname, email, password):
 
 def create_users(users):
     for user in users:
-        newUser = create_user(user['first_name'], user['last_name'], user['email'], user['password'], False)
+        newUser = create_user(user['first_name'], user['last_name'], user['email'], user['password'])
         db.session.add(newUser)
     db.session.commit()
 

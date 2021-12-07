@@ -15,7 +15,7 @@ def get_topic_by_id(id):
 # Get top 5 topics by post count
 def get_popular_topics():
     topics = get_topics()
-    sorted(topics, key=lambda i: i.post_count)
+    sorted(topics, key=lambda i: i.get_post_count())
     return topics[:5]
     
 
@@ -77,6 +77,13 @@ def delete_topic_by_id(id):
         return topic
     return None
 
+
+
+# get topic by levelid
+def get_topic_by_level(topiclvl_id):
+     print("getting Topic")
+     topic_lvl = Topic.query.filter(Topic.level == topiclvl_id).first() 
+     return topic_lvl
 
 # get topic by level
 def get_topic_by_level(topic_lvl):
